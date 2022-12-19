@@ -10,7 +10,9 @@ class handler(BaseHTTPRequestHandler):
 
         url = 'https://tenki.jp/forecast/3/16/4410/13210/1hour.html'
         # 解析済みのhtmlデータ
-        s = soup(url)
+        r = requests.get(url)
+        html = r.text.encode(r.encoding)
+        s= BeautifulSoup(html, 'lxml')
         # keyとvalue格納用辞書
         data = {}
         response=""
@@ -55,8 +57,3 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response.encode('utf-8'))
         return
-
-def soup(url):
-    r = requests.get(url)
-    html = r.text.encode(r.encoding)
-    return BeautifulSoup(html, 'lxml')
