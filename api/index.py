@@ -12,7 +12,7 @@ class handler(BaseHTTPRequestHandler):
         # 解析済みのhtmlデータ
         r = requests.get(url)
         html = r.text.encode(r.encoding)
-        s= BeautifulSoup(html, 'lxml')
+        s = BeautifulSoup(html, 'html')
         # keyとvalue格納用辞書
         data = {}
         response=""
