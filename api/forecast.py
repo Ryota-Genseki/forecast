@@ -42,7 +42,6 @@ def main(url):
             tenki = "🌧  "
         elif forecast["weather"]=="晴れ":
             tenki = "☀️  "
-
         else:
             tenki = forecast["weather"]
         
