@@ -45,14 +45,14 @@ class handler(BaseHTTPRequestHandler):
             forecast["weather"] = weather[num].text.strip()
             forecast["temperature"] = temperature[num].text.strip()
 
-            # response += (
-            #     "時刻         : " + forecast["hour"] + "時" + "\n"
-            #     "天気         : " + forecast["weather"] + "\n"
-            #     "気温(C)      : " + forecast["temperature"] + "\n\n"
-            # )
             response += (
-                "%-9s%-10s%s"%(forecast["hour"] + "時", forecast["temperature"], forecast["weather"])
+                "時刻         : " + forecast["hour"] + "時" + "\n"
+                "天気         : " + forecast["weather"] + "\n"
+                "気温(C)      : " + forecast["temperature"] + "\n\n"
             )
+            # response += (
+            #     "%-9s%-10s%s"%(forecast["hour"] + "時", forecast["temperature"], forecast["weather"])
+            # )
         self.send_response(200)
         self.send_header('Content-type','application/json')
         self.end_headers()
