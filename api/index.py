@@ -15,7 +15,9 @@ class handler(BaseHTTPRequestHandler):
         s = BeautifulSoup(html, 'html.parser')
         # keyとvalue格納用辞書
         data = {}
-        response={}
+        response={
+            
+        }
 
         # 辞書に要素追加
         loc_cand_1 = r"(.+)の1時間天気"
