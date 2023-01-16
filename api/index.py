@@ -15,9 +15,9 @@ class handler(BaseHTTPRequestHandler):
         s = BeautifulSoup(html, 'html.parser')
         # keyとvalue格納用辞書
         data = {}
-        response=""
+        response={
 
-        #中町の一時間ごとの気象情報URL
+        }
 
         # 辞書に要素追加
         loc_cand_1 = r"(.+)の1時間天気"
@@ -32,6 +32,7 @@ class handler(BaseHTTPRequestHandler):
         date = re.findall(d_date, d_src[0].text)[0]
         data["date"] = "%s年%s月%s日" % (date[0], date[1], date[2])
         response += "=====" + data["date"] + "====="
+        response += "時刻      気温(C)   天気"
 
         # 一時間ごとのデータを取得する
         hour          = s.select('.hour > td')
@@ -46,14 +47,16 @@ class handler(BaseHTTPRequestHandler):
             forecast["weather"] = weather[num].text.strip()
             forecast["temperature"] = temperature[num].text.strip()
 
+            # response += (
+            #     "時刻         : " + forecast["hour"] + "時" + "\n"
+            #     "天気         : " + forecast["weather"] + "\n"
+            #     "気温(C)      : " + forecast["temperature"] + "\n\n"
+            # )
             response += (
-                "時刻         : " + forecast["hour"] + "時" + "\n"
-                "天気         : " + forecast["weather"] + "\n"
-                "気温(C)      : " + forecast["temperature"] + "\n"
+                "%-9s%-10s%s"%(forecast["hour"] + "時", forecast["temperature"], forecast["weather"])
             )
-
         self.send_response(200)
-        self.send_header('Content-type','text/plain')
+        self.send_header('Content-type','application/json')
         self.end_headers()
         self.wfile.write(response.encode('utf-8'))
         return

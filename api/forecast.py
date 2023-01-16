@@ -8,7 +8,6 @@ def main(url):
     # keyとvalue格納用辞書
     data = {}
 
-
     # 辞書に要素追加
     loc_cand_1 = r"(.+)の1時間天気"
     loc_cand_2 = s.title.text
@@ -21,7 +20,10 @@ def main(url):
     d_src = s.select('.head p')
     date = re.findall(d_date, d_src[0].text)[0]
     data["date"] = "%s年%s月%s日" % (date[0], date[1], date[2])
-    print("=====" + data["date"] + "=====")
+    print("=====" + data["date"] + "=====\n")
+    print(
+        "時刻      気温(C)   天気"
+    )
 
     # 一時間ごとのデータを取得する
     hour          = s.select('.hour > td')
@@ -36,11 +38,15 @@ def main(url):
         forecast["weather"] = weather[num].text.strip()
         forecast["temperature"] = temperature[num].text.strip()
 
-        print(
-            "時刻         : " + forecast["hour"] + "時" + "\n"
-            "天気         : " + forecast["weather"] + "\n"
-            "気温(C)      : " + forecast["temperature"] + "\n"
-        )
+        if forecast["weather"]=="小雨":
+            tenki = "🌧  "
+        elif forecast["weather"]=="晴れ":
+            tenki = "☀️  "
+
+        else:
+            tenki = forecast["weather"]
+        
+        print("%-9s%-10s%s"%(forecast["hour"] + "時",  forecast["temperature"], tenki))
 
 def soup(url):
     r = requests.get(url)
