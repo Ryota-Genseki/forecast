@@ -32,7 +32,7 @@ class handler(BaseHTTPRequestHandler):
         data["date"] = "%s年%s月%s日" % (date[0], date[1], date[2])
         response += (
             "=====" + data["date"] + "=====" +"\n"
-            "時刻      気温(C)   天気" + "\n"
+            "時刻      気温(℃)   天気" + "\n"
         )
         # 一時間ごとのデータを取得する
         hour          = s.select('.hour > td')
@@ -47,15 +47,31 @@ class handler(BaseHTTPRequestHandler):
             forecast["weather"] = weather[num].text.strip()
             forecast["temperature"] = temperature[num].text.strip()
 
-            if forecast["weather"]=="小雨":
-                tenki = "🌧  "
-            elif forecast["weather"]=="晴れ":
-                tenki = "☀️  "
+            if forecast["weather"]=="晴れ":
+                tenki = "☀️"
+            elif  forecast["weather"]=="曇り":
+                tenki = "🌧"
+            elif forecast["weather"]=="小雨":
+                tenki = "🌧"
+            elif  forecast["weather"]=="弱雨":
+                tenki = "🌧"
+            elif  forecast["weather"]=="雨":
+                tenki = "🌧"
+            elif  forecast["weather"]=="強雨":
+                tenki = "🌧"
+            elif  forecast["weather"]=="豪雨":
+                tenki = "🌧"
+            elif  forecast["weather"]=="乾雪":
+                tenki = "🌧"
+            elif  forecast["weather"]=="湿雪":
+                tenki = "🌧"
+            elif  forecast["weather"]=="みぞれ":
+                tenki = "🌧"
             else:
                 tenki = forecast["weather"]
-        
+
             response += (
-                "%-9s%-10s%s"%(forecast["hour"] + "時",  forecast["temperature"], tenki) + "\n"
+                "%-9s%-12s%s(%s)"%(forecast["hour"] + "時",  forecast["temperature"], tenki, forecast["weather"]) + "\n"
             )
 
         self.send_response(200)
