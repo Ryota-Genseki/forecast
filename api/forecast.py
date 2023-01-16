@@ -15,7 +15,7 @@ def main(url):
     print(data['location'] + "の天気")
     soup_today = s.find(id='forecast-point-1h-today')
 
-    # 日付処理
+    # 日付処理z
     d_date = r"(\d+)年(\d+)月(\d+)日"
     d_src = s.select('.head p')
     date = re.findall(d_date, d_src[0].text)[0]

@@ -15,17 +15,15 @@ class handler(BaseHTTPRequestHandler):
         s = BeautifulSoup(html, 'html.parser')
         # keyとvalue格納用辞書
         data = {}
-        response={
+        response=""
 
-        }
+        #中町の一時間ごとの気象情報URL
 
         # 辞書に要素追加
         loc_cand_1 = r"(.+)の1時間天気"
         loc_cand_2 = s.title.text
         data['location'] = re.findall(loc_cand_1, loc_cand_2)[0]#一致するか確認
-        response += (
-            data['location'] + "の天気" + "\n"
-        )
+        response += data['location'] + "の天気\n"
         soup_today = s.find(id='forecast-point-1h-today')
 
         # 日付処理
@@ -33,10 +31,7 @@ class handler(BaseHTTPRequestHandler):
         d_src = s.select('.head p')
         date = re.findall(d_date, d_src[0].text)[0]
         data["date"] = "%s年%s月%s日" % (date[0], date[1], date[2])
-        response += (
-            "=====" + data["date"] + "=====" + "\n"
-        )
-        # response += "時刻      気温(C)   天気"
+        response += "=====" + data["date"] + "====="
 
         # 一時間ごとのデータを取得する
         hour          = s.select('.hour > td')
@@ -52,15 +47,13 @@ class handler(BaseHTTPRequestHandler):
             forecast["temperature"] = temperature[num].text.strip()
 
             response += (
-                "時刻         : " + forecast["hour"] + "時" + "\n",
-                "天気         : " + forecast["weather"] + "\n",
+                "時刻         : " + forecast["hour"] + "時" + "\n"
+                "天気         : " + forecast["weather"] + "\n"
                 "気温(C)      : " + forecast["temperature"] + "\n"
             )
-            # response += (
-            #     "%-9s%-10s%s"%(forecast["hour"] + "時", forecast["temperature"], forecast["weather"])
-            # )
+
         self.send_response(200)
-        self.send_header('Content-type','application/json')
+        self.send_header('Content-type','text/plain')
         self.end_headers()
         self.wfile.write(response.encode('utf-8'))
         return
