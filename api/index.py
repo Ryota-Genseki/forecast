@@ -24,7 +24,7 @@ class handler(BaseHTTPRequestHandler):
         loc_cand_2 = s.title.text
         data['location'] = re.findall(loc_cand_1, loc_cand_2)[0]#一致するか確認
         response += (
-            data['location'] + "の天気"
+            data['location'] + "の天気" + "\n"
         )
         soup_today = s.find(id='forecast-point-1h-today')
 
@@ -34,7 +34,7 @@ class handler(BaseHTTPRequestHandler):
         date = re.findall(d_date, d_src[0].text)[0]
         data["date"] = "%s年%s月%s日" % (date[0], date[1], date[2])
         response += (
-            "=====" + data["date"] + "====="
+            "=====" + data["date"] + "=====" + "\n"
         )
         # response += "時刻      気温(C)   天気"
 
@@ -54,7 +54,7 @@ class handler(BaseHTTPRequestHandler):
             response += (
                 "時刻         : " + forecast["hour"] + "時" + "\n"
                 "天気         : " + forecast["weather"] + "\n"
-                "気温(C)      : " + forecast["temperature"] + "\n\n"
+                "気温(C)      : " + forecast["temperature"] + "\n"
             )
             # response += (
             #     "%-9s%-10s%s"%(forecast["hour"] + "時", forecast["temperature"], forecast["weather"])
