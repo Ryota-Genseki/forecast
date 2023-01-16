@@ -15,7 +15,7 @@ class handler(BaseHTTPRequestHandler):
         s = BeautifulSoup(html, 'html.parser')
         # keyとvalue格納用辞書
         data = {}
-        response={}
+        response=""
 
         #中町の一時間ごとの気象情報URL
 
