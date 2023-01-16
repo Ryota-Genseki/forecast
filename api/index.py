@@ -30,7 +30,7 @@ class handler(BaseHTTPRequestHandler):
         date = re.findall(d_date, d_src[0].text)[0]
         data["date"] = "%s年%s月%s日" % (date[0], date[1], date[2])
         response += "=====" + data["date"] + "====="
-        response += "時刻      気温(C)   天気"
+        # response += "時刻      気温(C)   天気"
 
         # 一時間ごとのデータを取得する
         hour          = s.select('.hour > td')
