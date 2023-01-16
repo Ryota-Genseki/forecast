@@ -52,8 +52,8 @@ class handler(BaseHTTPRequestHandler):
             forecast["temperature"] = temperature[num].text.strip()
 
             response += (
-                "時刻         : " + forecast["hour"] + "時" + "\n"
-                "天気         : " + forecast["weather"] + "\n"
+                "時刻         : " + forecast["hour"] + "時" + "\n",
+                "天気         : " + forecast["weather"] + "\n",
                 "気温(C)      : " + forecast["temperature"] + "\n"
             )
             # response += (
