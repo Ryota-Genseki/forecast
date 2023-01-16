@@ -23,7 +23,9 @@ class handler(BaseHTTPRequestHandler):
         loc_cand_1 = r"(.+)の1時間天気"
         loc_cand_2 = s.title.text
         data['location'] = re.findall(loc_cand_1, loc_cand_2)[0]#一致するか確認
-        response += data['location'] + "の天気"
+        response += (
+            data['location'] + "の天気"
+        )
         soup_today = s.find(id='forecast-point-1h-today')
 
         # 日付処理
