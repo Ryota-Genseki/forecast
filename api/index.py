@@ -50,21 +50,21 @@ class handler(BaseHTTPRequestHandler):
             if forecast["weather"]=="晴れ":
                 tenki = "☀️"
             elif  forecast["weather"]=="曇り":
-                tenki = "🌧"
+                tenki = "☁️"
             elif forecast["weather"]=="小雨":
-                tenki = "🌧"
+                tenki = "🌂"
             elif  forecast["weather"]=="弱雨":
-                tenki = "🌧"
+                tenki = "☂"
             elif  forecast["weather"]=="雨":
                 tenki = "🌧"
             elif  forecast["weather"]=="強雨":
                 tenki = "🌧"
             elif  forecast["weather"]=="豪雨":
-                tenki = "🌧"
+                tenki = "⛈"
             elif  forecast["weather"]=="乾雪":
-                tenki = "🌧"
+                tenki = "⛄"
             elif  forecast["weather"]=="湿雪":
-                tenki = "🌧"
+                tenki = "☃"
             elif  forecast["weather"]=="みぞれ":
                 tenki = "🌧"
             else:
